@@ -30,8 +30,15 @@ public class WhatsappService {
 
     }
     public Group createGroup(List<User> users){
+
         if(users.size()<2)
             return null;
+        for(User user:users){
+            if(whatsappRepositoryObj.getUserMobile().equals(user.getMobile())||whatsappRepositoryObj.getNames().equals(user.getName()))
+                users.remove(user);
+            whatsappRepositoryObj.getUserMobile().add(user.getMobile());
+            whatsappRepositoryObj.getNames().add(user.getName());
+        }
         if(users.size()==2){
             String name=users.get(users.size()-1).getName();
             Group group=new Group(name, users.size());
@@ -92,8 +99,7 @@ public class WhatsappService {
          throw new userNotExist("User is not a participant");
 
      whatsappRepositoryObj.getAdminMap().put(group,newAdmin);
-     if(group.getNumberOfParticipants()==2)
-         group.setName(newAdmin.getName());
+
 
     return "SUCCESS";
 
