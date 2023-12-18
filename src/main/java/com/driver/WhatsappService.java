@@ -35,7 +35,7 @@ public class WhatsappService {
         if(users.size()==2){
             String name=users.get(users.size()-1).getName();
             Group group=new Group(name, users.size());
-            whatsappRepositoryObj.getAdminMap().put(group,users.get(users.size()-1));
+            whatsappRepositoryObj.getAdminMap().put(group,users.get(0));
             whatsappRepositoryObj.getGroupUserMap().put(group,users);
             return group;
         }
