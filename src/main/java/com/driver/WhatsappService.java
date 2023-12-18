@@ -40,8 +40,9 @@ public class WhatsappService {
             return group;
         }
         else{
-            String name="Group"+whatsappRepositoryObj.getCustomGroupCount();
             whatsappRepositoryObj.setCustomGroupCount(whatsappRepositoryObj.getCustomGroupCount()+1);
+            String name="Group "+whatsappRepositoryObj.getCustomGroupCount();
+
             Group group=new Group(name, users.size());
             whatsappRepositoryObj.getAdminMap().put(group,users.get(0));
             whatsappRepositoryObj.getGroupUserMap().put(group,users);
@@ -78,7 +79,7 @@ public class WhatsappService {
  public String changeAdmin(User approver, User newAdmin, Group group)throws Exception{
      if(!whatsappRepositoryObj.getGroupUserMap().containsKey(group))
          throw new groupDoesNotExist("Group does not exist");
-     if(!group.getName().equals(approver))
+     if(!whatsappRepositoryObj.getAdminMap().get(group).getName().equals(approver))
          throw new approversIsNotAdmin("Approver does not have rights");
      Boolean find=false;
      for(User user:whatsappRepositoryObj.getGroupUserMap().get(group)){
